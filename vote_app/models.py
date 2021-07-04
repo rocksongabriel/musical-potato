@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
@@ -12,9 +13,20 @@ class Category(models.Model):
                             blank=False,
                             null=False,
                             help_text="Enter the name of the category")
+    slug = models.SlugField(_("Slug"),
+                            max_length=50,
+                            blank=False,
+                            null=False,
+                            help_text="Slug of the category",
+                            unique=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(**kwargs)
 
     class Meta:
         verbose_name = "Category"
@@ -33,12 +45,13 @@ class Candidate(models.Model):
                                 null=False,
                                 upload_to="candidates/pictures/",
                                 help_text="Upload the image of the candidate")
-    category = models.ForeignKey(Category,
-                                 on_delete=models.CASCADE,
-                                 related_name="candidates",
-                                 null=False,
-                                 blank=False,
-                                 help_text="Select the category the candidate belongs to")
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="candidates",
+        null=False,
+        blank=False,
+        help_text="Select the category the candidate belongs to")
     number_of_votes = models.PositiveIntegerField(_("Number of Votes"),
                                                   default=0)
     upvote = models.BooleanField(default=False)
