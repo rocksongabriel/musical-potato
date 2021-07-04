@@ -35,6 +35,7 @@ class Candidate(models.Model):
                                 help_text="Upload the image of the candidate")
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
+                                 related_name="candidates",
                                  null=False,
                                  blank=False,
                                  help_text="Select the category the candidate belongs to")
