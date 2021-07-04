@@ -50,6 +50,7 @@ INSTALLED_APPS.extend([
 
     # developer created apps
     "users",
+    "vote_app",
 ])
 
 INSTALLED_APPS.insert(0, "grappelli")
