@@ -44,11 +44,22 @@ aldryn_addons.settings.load(locals())
 
 INSTALLED_APPS.extend([
     # Extend the INSTALLED_APPS setting by listing additional applications here
+    
+    # 3rd party applications
+    "django_extensions",
+
+    # developer created apps
     "users",
 ])
+
+INSTALLED_APPS.insert(0, "grappelli")
 
 # To see the settings that have been applied, use the Django diffsettings 
 # management command. 
 # See https://docs.divio.com/en/latest/how-to/configure-settings.html#list
 
 AUTH_USER_MODEL = "users.User"
+
+# Grapelli settings
+GRAPPELLI_ADMIN_TITLE = "Voting Platform"
+GRAPPELLI_SWITCH_USER = "True"
