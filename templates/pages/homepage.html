@@ -12,5 +12,10 @@
     <h1 class="text-red-600 font-bold text-center text-3xl">Homepage</h1>
 
     <p class="py-5 text-lg">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis assumenda vel in odio tempore magni fugiat, nemo quisquam! Facere labore totam possimus, tempore asperiores voluptatum illum accusantium dignissimos velit cumque?</p>
+
+    <div>
+        <a href="{% url 'vote_app:vote' %}" class="text-lg text-blue-500">Vote</a>
+        <a href="{% url 'vote_app:results' %}" % class="text-lg text-green-600"}>Result</a>
+    </div>
 </body>
 </html>
