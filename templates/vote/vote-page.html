@@ -23,7 +23,7 @@
            <!-- Fullname -->
            <div>
                 {{ form.full_name.value }}
-                <img src="">
+                <img src="{{ MEDIA_URL }}{{ form.picture.value }}" style="width:300px; height: 300px">
            </div>
 
         {% endfor %}

@@ -20,14 +20,15 @@ class Category(models.Model):
                             blank=False,
                             null=False,
                             help_text="Slug of the category",
-                            unique=True, default="")
+                            unique=True,
+                            default="")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("vote_app:vote", kwargs={"slug": self.slug})
-    
+
     def save(self, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -61,11 +62,15 @@ class Candidate(models.Model):
                                                   default=0)
     upvote = models.BooleanField(default=False)
 
+    # display picture in admin
     def image_tag(self):
         if self.picture:
-            return mark_safe('<img src="%s" style="width: 100px; height:100px;" />' % self.picture.url)
+            return mark_safe(
+                '<img src="%s" style="width: 100px; height:100px;" />' %
+                self.picture.url)
         else:
             return 'No Image Found'
+
     image_tag.short_description = 'Image'
 
     def __str__(self):
