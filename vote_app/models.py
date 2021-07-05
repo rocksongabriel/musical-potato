@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.conf import settings
@@ -47,7 +48,7 @@ class Candidate(models.Model):
     picture = models.ImageField(_("Picture of Candidate"),
                                 blank=False,
                                 null=False,
-                                upload_to="media/candidates/pictures/",
+                                upload_to="candidates/pictures/",
                                 help_text="Upload the image of the candidate")
     category = models.ForeignKey(
         Category,
@@ -59,6 +60,13 @@ class Candidate(models.Model):
     number_of_votes = models.PositiveIntegerField(_("Number of Votes"),
                                                   default=0)
     upvote = models.BooleanField(default=False)
+
+    def image_tag(self):
+        if self.picture:
+            return mark_safe('<img src="%s" style="width: 100px; height:100px;" />' % self.picture.url)
+        else:
+            return 'No Image Found'
+    image_tag.short_description = 'Image'
 
     def __str__(self):
         return self.full_name

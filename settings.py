@@ -5,6 +5,7 @@
 #   http://docs.divio.com/en/latest/reference/configuration-settings-file.html
 #
 # and comments below.
+import os
 
 
 # INSTALLED_ADDONS is a list of self-configuring Divio Cloud addons - see the
@@ -64,3 +65,7 @@ AUTH_USER_MODEL = "users.User"
 # Grapelli settings
 GRAPPELLI_ADMIN_TITLE = "Voting Platform"
 GRAPPELLI_SWITCH_USER = "True"
+
+# Media settings
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join('/data/media/')
