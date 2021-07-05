@@ -1,22 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Vote for your candidate here</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-    {% for category in categories %}
-        <p>{{ category.name }}</p>
-        <ul>
-            {% for candidate in category.candidates.all %}
-                <p>{{ candidate.full_name }}</p>
-                <p>{{ candidate.upvote }}<p>
-            {% endfor %}
-        </ul>
-    {% endfor %}
-</body>
-</html>
+{% block title %}Vote for your favorite {{ category.name }}{% endblock title %}
+
+
+{% block content %}
+    <p class="text-center text-black text-4xl font-bold py-4">{{ category.name }}</p>
+
+    <div class="mx-10">
+
+        <!--
+               display:
+                - the candidate name
+                - the candidate picture
+                - a vote button beneath each candidate
+                - a hidden field for the upvote, that will be ticked when the vote button is clicked
+           -->
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+
+           <!-- Fullname -->
+           <div>
+                {{ form.full_name.value }}
+                <img src="">
+           </div>
+
+        {% endfor %}
+
+    </div>
+{% endblock content %}

@@ -4,7 +4,7 @@ from .models import Candidate, Category
 
 class CandidateInline(admin.TabularInline):
     model = Candidate
-    extra = 1
+    extra = 0
     min_num = 1
     show_change_link = True
 
@@ -15,6 +15,7 @@ class CandidateInline(admin.TabularInline):
 class CategoryAdmin(admin.ModelAdmin):
     inlines = [CandidateInline, ]
     list_display = ["name"]
+    readonly_fields = ("slug",)
 
 
 @admin.register(Candidate)

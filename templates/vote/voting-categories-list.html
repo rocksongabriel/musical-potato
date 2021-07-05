@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Voting Categories{% endblock title %}
+
+
+{% block content %}
+    <div class="mx-10">
+        <h1 class="text-center text-red-800 text-4xl font-bold py-3">Categories</h1>
+
+        {% for category in categories %}
+            <a href="{% url 'vote_app:vote' category.slug %}"><p class="text-2xl p-4 my-2 shadow-xl">{{ category.name }}</p><a>
+        {% endfor %}
+    </div>
+{% endblock content %}

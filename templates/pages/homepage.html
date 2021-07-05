@@ -1,21 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/tailwind/tailwind.css' %}">
-    <title>Homepage</title>
-</head>
-<body>
-    <h1 class="text-red-600 font-bold text-center text-3xl">Homepage</h1>
+{% extends 'base.html' %}
 
-    <p class="py-5 text-lg">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis assumenda vel in odio tempore magni fugiat, nemo quisquam! Facere labore totam possimus, tempore asperiores voluptatum illum accusantium dignissimos velit cumque?</p>
+{% block title %}Homepage{% endblock title %}
 
-    <div>
-        <a href="{% url 'vote_app:vote' %}" class="text-lg text-blue-500">Vote</a>
+
+{% block content %}
+    <h1 class="text-center text-5xl font-bold py-3 text-yellow-600">Welcome</h1>
+
+    <div class="mx-5">
+
+        <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-500">Vote</a>
         <a href="{% url 'vote_app:results' %}" % class="text-lg text-green-600"}>Result</a>
+
     </div>
-</body>
-</html>
+{% endblock content %}

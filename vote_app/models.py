@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.conf import settings
+from django.urls import reverse
 
 User = settings.AUTH_USER_MODEL
 
@@ -18,11 +19,14 @@ class Category(models.Model):
                             blank=False,
                             null=False,
                             help_text="Slug of the category",
-                            unique=True)
+                            unique=True, default="")
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("vote_app:vote", kwargs={"slug": self.slug})
+    
     def save(self, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -43,7 +47,7 @@ class Candidate(models.Model):
     picture = models.ImageField(_("Picture of Candidate"),
                                 blank=False,
                                 null=False,
-                                upload_to="candidates/pictures/",
+                                upload_to="media/candidates/pictures/",
                                 help_text="Upload the image of the candidate")
     category = models.ForeignKey(
         Category,
