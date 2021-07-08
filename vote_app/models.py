@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import related
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -22,6 +23,7 @@ class Category(models.Model):
                             help_text="Slug of the category",
                             unique=True,
                             default="")
+    voters = models.ManyToManyField(User, related_name="voted_categories")
 
     def __str__(self):
         return self.name
