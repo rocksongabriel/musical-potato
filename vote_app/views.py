@@ -1,9 +1,12 @@
 from django.db.models import fields
-from django.shortcuts import render
-from django.views.generic.base import TemplateView
-from django.views.generic import ListView
-from .models import Category, Candidate
 from django.forms import inlineformset_factory
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.base import TemplateView
+
+from .models import Candidate, Category
 
 
 class VotingCategoriesListPage(ListView):
@@ -16,13 +19,13 @@ class VotingCategoriesListPage(ListView):
 class VotingPage(TemplateView):
     """view for the voting page"""
     template_name = "vote/vote-page.html"
+    success_url = reverse_lazy("vote_app:vote-categories")
 
     CandidateInlineFormset = inlineformset_factory(Category,
                                                    Candidate,
                                                    fields=(
                                                        "full_name",
                                                        "picture",
-                                                       "upvote",
                                                    ),
                                                    extra=0,
                                                    can_delete=False)
@@ -32,10 +35,27 @@ class VotingPage(TemplateView):
         formset = self.CandidateInlineFormset(request.POST,
                                               request.FILES,
                                               instance=category)
-        context = {"category": category}
+
+        # Get the upvote key from the request dict
+        # Get the candidate full name from the key
+        # Fetch the candidate object using the full name
+        # Increase the candidates number of votes
+
+        # Get the upvote key
+        for key in request.POST.keys():
+            if 'upvote' in key:
+                # Get the full name from the key
+                full_name = " ".join([name.capitalize() for name in key.split("_")[1].split("-")])
+                print(full_name)
+        # Get the candidate using the full name
+        candidate = Candidate.objects.get(full_name=full_name)
+        # Upvote the candidate 
+        candidate.upvote()
+
+        # Check the forms validity and save it
         if formset.is_valid():
             formset.save()
-        return render(request, self.template_name, context)
+        return HttpResponseRedirect(self.success_url)
 
     def get(self, request, slug):
         category = Category.objects.get(slug=slug)
