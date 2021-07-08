@@ -5,55 +5,68 @@
 
 
 {% block content %}
-    <p class="text-center text-black text-4xl font-bold py-4">{{ category.name }}</p>
+    <div id="vote-app">
 
-    <div class="mx-2 md:mx-5 lg:mx-10">
+        <p class="text-center text-black text-4xl font-bold py-4">{{ category.name }}</p>
 
-        <!--
-               display:
-                - the candidate name
-                - the candidate picture
-                - a vote button beneath each candidate
-                - a hidden field for the upvote, that will be ticked when the vote button is clicked
-           -->
+        [[ msg ]]
 
-        <form method="POST">
-            {% csrf_token %}
+        <div class="mx-2 md:mx-5 lg:mx-10 my-5">
 
-            {{ formset.management_form }}
+            <!--
+                display:
+                    - the candidate name
+                    - the candidate picture
+                    - a vote button beneath each candidate
+                    - a hidden field for the upvote, that will be ticked when the vote button is clicked
+            -->
 
-            {% for error in errors %}
-                {{ error }}
-            {% endfor %}
+            <form method="POST">
+                {% csrf_token %}
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 my-5">
+                {{ formset.management_form }}
 
-               {% for form in formset %}
-                    <div class="hidden">
-                        {{ form.id }}
-                        {{ form.full_name }}
-                        {{ form.picture }}
-                        {{ form.category }}
-                        {{ form.number_of_votes }}
-                    </div>
-                    <div class="shadow-2xl p-5">
-                        <!-- render the name of the candidate from the form-->
-                        <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
+                {% for error in errors %}
+                    {{ error }}
+                {% endfor %}
 
-                        <!-- render the picture of the candidate from the form-->
-                        <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
 
-                        <!-- button to upvote this candidate -->
-                        <input type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_checkbox">
-                        <button type="button" class="w-full rounded-md bg-purple-600 py-2 mt-3 hover:bg-purple-700 hover:shadow-lg text-white font-bold text-xl">Vote</button>
-                    </div>
-               {% endfor %}
-           </div>
+                {% for form in formset %}
+                        <div class="hidden"> <!-- ender the form with it's corresponding values -->
+                            {{ form.id }}
+                            {{ form.full_name }}
+                            {{ form.picture }}
+                            {{ form.category }}
+                            {{ form.number_of_votes }}
+                        </div>
 
-           <div class="flex">
-                <button class="bg-blue-600 py-2 px-4 font-bold text-white rounded-md hover:bg-blue-700">Submit Vote</button>
-           </div>
-        </form>
+                        <div class="shadow-2xl p-5"> <!-- showcase the info on the candidate that the voter should see -->
+                            <!-- render the name of the candidate from the form-->
+                            <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
 
+                            <!-- render the picture of the candidate from the form-->
+                            <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
+
+                            <!-- button to upvote this candidate -->
+                            <div class="mt-5">
+                                <input class="hidden" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
+                                <label 
+                                    for="upvote_{{ form.full_name.value|slugify }}"
+                                    class="block text-center bg-purple-600 hover:bg-purple-700 p-3 text-white font-bold text-xl rounded-md cursor-pointer">
+                                    Vote
+                               </label>
+                                
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+
+            <div class="flex">
+                    <button class="bg-blue-600 py-2 px-4 font-bold text-white rounded-md hover:bg-blue-700">Submit Vote</button>
+            </div>
+            </form>
+
+        </div>
     </div>
 {% endblock content %}
