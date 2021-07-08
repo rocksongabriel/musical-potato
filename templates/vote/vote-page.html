@@ -21,7 +21,7 @@
                     - a hidden field for the upvote, that will be ticked when the vote button is clicked
             -->
 
-            <form method="POST">
+            <form method="POST" id="vote-form">
                 {% csrf_token %}
 
                 {{ formset.management_form }}
@@ -50,7 +50,7 @@
 
                             <!-- button to upvote this candidate -->
                             <div class="mt-5">
-                                <input class="hidden" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
+                                <input class="input-checkbox" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
                                 <label 
                                     for="upvote_{{ form.full_name.value|slugify }}"
                                     class="block text-center bg-purple-600 hover:bg-purple-700 p-3 text-white font-bold text-xl rounded-md cursor-pointer">
