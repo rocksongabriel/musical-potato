@@ -60,7 +60,6 @@ class Candidate(models.Model):
         help_text="Select the category the candidate belongs to")
     number_of_votes = models.PositiveIntegerField(_("Number of Votes"),
                                                   default=0)
-    upvote = models.BooleanField(default=False)
 
     # display picture in admin
     def image_tag(self):
@@ -73,13 +72,17 @@ class Candidate(models.Model):
 
     image_tag.short_description = 'Image'
 
+    # increase vote of candidate
+    def upvote(self, **kwargs):
+        self.number_of_votes += 1
+        return super().save(**kwargs)
+
+    def save(self, **kwargs):
+        self.full_name = " ".join(self.full_name.split()) # Remove any spaces that will mistakenly crawl into the full_name
+        return super().save(**kwargs)
+
     def __str__(self):
         return self.full_name
-
-    def save(self, **kwargs) -> None:
-        if self.upvote is True:
-            self.number_of_votes += 1
-        return super().save(**kwargs)
 
     class Meta:
         verbose_name = "Candidate"
