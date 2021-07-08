@@ -8,6 +8,10 @@ from django.views.generic.base import TemplateView
 
 from .models import Candidate, Category
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class VotingCategoriesListPage(ListView):
     """view for displaying the various categories to vote in"""
@@ -36,29 +40,38 @@ class VotingPage(TemplateView):
                                               request.FILES,
                                               instance=category)
 
-        # Get the upvote key from the request dict
-        # Get the candidate full name from the key
-        # Fetch the candidate object using the full name
-        # Increase the candidates number of votes
-
         # Get the upvote key
         for key in request.POST.keys():
             if 'upvote' in key:
                 # Get the full name from the key
                 full_name = " ".join([name.capitalize() for name in key.split("_")[1].split("-")])
-                print(full_name)
         # Get the candidate using the full name
         candidate = Candidate.objects.get(full_name=full_name)
         # Upvote the candidate 
         candidate.upvote()
+
+        # Get the user and add him to the voters of the category
+        voter = User.objects.get(username=request.user.username)
+        
+        # Add the voter to the category's voters
+        category.voters.add(voter)
 
         # Check the forms validity and save it
         if formset.is_valid():
             formset.save()
         return HttpResponseRedirect(self.success_url)
 
+        # TODO - handle error if a voter doesn't vote for anybody and tries to submit
+        # TODO - do not allow the voter for in a category twice
+
     def get(self, request, slug):
         category = Category.objects.get(slug=slug)
+        user = User.objects.get(username=request.user.username)
+
+        # Check if the user has voted in the category already and redirect him if he has
+        if user.username in [voter.username for voter in category.voters.filter(username__search=user.username)]:
+            return render(request, template_name="vote/already-voted.html", context={"user": user})
+
         formset = self.CandidateInlineFormset(instance=category)
         context = {"category": category, "formset": formset}
         return render(request, self.template_name, context)

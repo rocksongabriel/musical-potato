@@ -7,7 +7,7 @@
 {% block content %}
     <p class="text-center text-black text-4xl font-bold py-4">{{ category.name }}</p>
 
-    <div class="mx-10">
+    <div class="mx-2 md:mx-5 lg:mx-10">
 
         <!--
                display:
@@ -17,16 +17,43 @@
                 - a hidden field for the upvote, that will be ticked when the vote button is clicked
            -->
 
-        {{ formset.management_form }}
-        {% for form in formset %}
+        <form method="POST">
+            {% csrf_token %}
 
-           <!-- Fullname -->
-           <div>
-                {{ form.full_name.value }}
-                <img src="{{ MEDIA_URL }}{{ form.picture.value }}" style="width:300px; height: 300px">
+            {{ formset.management_form }}
+
+            {% for error in errors %}
+                {{ error }}
+            {% endfor %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 my-5">
+
+               {% for form in formset %}
+                    <div class="hidden">
+                        {{ form.id }}
+                        {{ form.full_name }}
+                        {{ form.picture }}
+                        {{ form.category }}
+                        {{ form.number_of_votes }}
+                    </div>
+                    <div class="shadow-2xl p-5">
+                        <!-- render the name of the candidate from the form-->
+                        <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
+
+                        <!-- render the picture of the candidate from the form-->
+                        <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
+
+                        <!-- button to upvote this candidate -->
+                        <input type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_checkbox">
+                        <button type="button" class="w-full rounded-md bg-purple-600 py-2 mt-3 hover:bg-purple-700 hover:shadow-lg text-white font-bold text-xl">Vote</button>
+                    </div>
+               {% endfor %}
            </div>
 
-        {% endfor %}
+           <div class="flex">
+                <button class="bg-blue-600 py-2 px-4 font-bold text-white rounded-md hover:bg-blue-700">Submit Vote</button>
+           </div>
+        </form>
 
     </div>
 {% endblock content %}
