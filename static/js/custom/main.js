@@ -24,7 +24,7 @@ form.addEventListener("submit", (event) => {
 for (checkbox of checkboxes) {
     checkbox.addEventListener("change", (event) => {
         for (button of vote_buttons) {
-            button.classList.add("pointer-events-none");
+            button.classList.add("pointer-events-none"); // disable the button 
         }
         for (label of labels) {
             label.classList.add("opacity-80");
@@ -35,7 +35,7 @@ for (checkbox of checkboxes) {
                 identifier_class = checkbox.classList[0]; // the classname to get he voted label to display
                 for (voted_label of voted_labels) {
                     if (voted_label.classList.contains(identifier_class)) {
-                        voted_label.classList.remove("hidden");
+                        voted_label.classList.remove("hidden"); // show the voted text
                     }
                 }
             }

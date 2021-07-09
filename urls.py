@@ -10,6 +10,9 @@ urlpatterns = [
     # add your own patterns here
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
 
+    # django-allauth
+    # path('accounts/', include('allauth.urls')),
+
     path("", include("pages.urls", namespace="pages")),
     path("voting/", include("vote_app.urls", namespace="vote_app")),
 

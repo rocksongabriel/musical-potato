@@ -45,9 +45,13 @@ aldryn_addons.settings.load(locals())
 
 INSTALLED_APPS.extend([
     # Extend the INSTALLED_APPS setting by listing additional applications here
-    
+    "django.contrib.postgres",
+
     # 3rd party applications
     "django_extensions",
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
 
     # developer created apps
     "users",
@@ -69,3 +73,13 @@ GRAPPELLI_SWITCH_USER = "True"
 # Media settings
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join('/data/media/')
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
