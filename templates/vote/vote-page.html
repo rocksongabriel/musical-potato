@@ -44,11 +44,17 @@
                             <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
 
                             <!-- render the picture of the candidate from the form-->
-                            <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
+                            <div class="relative">
+                                <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
+                                <h3 
+                                    class="text-red-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold hidden voted-label checkbox_{{ form.full_name.value|slugify }}">
+                                    Voted
+                                </h3>
+                            </div>
 
                             <!-- button to upvote this candidate -->
                             <div class="mt-5">
-                                <input class="input-checkbox" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
+                                <input class="checkbox_{{ form.full_name.value|slugify }} input-checkbox hidden" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
                                 <button for="upvote_{{ form.full_name.value|slugify }}" type="button" style="width: 100%" class="checkbox-btn focus:outline-none">
                                     <label 
                                         for="upvote_{{ form.full_name.value|slugify }}"

@@ -2,7 +2,8 @@
 let form = document.getElementById("vote-form");
 let checkboxes = document.getElementsByClassName("input-checkbox");
 let vote_buttons = document.getElementsByClassName("checkbox-btn");
-let labels = document.getElementsByClassName("checkbox-label")
+let labels = document.getElementsByClassName("checkbox-label");
+voted_labels = document.getElementsByClassName("voted-label");
 
 form.addEventListener("submit", (event) => {
     let all_checked = false;
@@ -28,5 +29,17 @@ for (checkbox of checkboxes) {
         for (label of labels) {
             label.classList.add("opacity-80");
         }
+
+        for (checkbox of checkboxes) {
+            if (checkbox.checked) {
+                identifier_class = checkbox.classList[0]; // the classname to get he voted label to display
+                for (voted_label of voted_labels) {
+                    if (voted_label.classList.contains(identifier_class)) {
+                        voted_label.classList.remove("hidden");
+                    }
+                }
+            }
+        }
     })
 }
+

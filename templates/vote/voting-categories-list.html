@@ -5,10 +5,23 @@
 
 {% block content %}
     <div class="mx-10">
-        <h1 class="text-center text-red-800 text-4xl font-bold py-3">Categories</h1>
+        <h1 class="my-5 text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-center">Categories</h1>
 
-        {% for category in categories %}
-            <a href="{% url 'vote_app:vote' category.slug %}"><p class="text-2xl p-4 my-2 shadow-xl">{{ category.name }}</p><a>
-        {% endfor %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 mt-10">
+            {% for category in categories %}
+                <a href="{% url 'vote_app:vote' category.slug %}" class=" bg-gray-700 text-white p-5 text-center border border-gray-300 text-2xl lg:text-3xl font-bold shadow-xl rounded">
+                    <h2>{{ category.name }}</h2>
+                    {% comment %} <div>                        
+                        <h2 class="pb-5">{{ category.name }}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {% for candidate in category.candidates.all %}
+                                <img src="{{ candidate.picture.url }}" class="w-full h-32" />
+                            {% endfor %}
+                        </div>
+                    </div> {% endcomment %}
+                </a>
+
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
