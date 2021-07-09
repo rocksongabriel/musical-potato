@@ -1,9 +1,12 @@
 // Prevent the form from getting submitted if the user hasn't voted
 let form = document.getElementById("vote-form");
+let checkboxes = document.getElementsByClassName("input-checkbox");
+let vote_buttons = document.getElementsByClassName("checkbox-btn");
+let labels = document.getElementsByClassName("checkbox-label")
 
 form.addEventListener("submit", (event) => {
     let all_checked = false;
-    for (checkbox of document.getElementsByClassName("input-checkbox")) {
+    for (checkbox of checkboxes) {
         all_checked = checkbox.checked || all_checked;
     }
     if (all_checked === true) {
@@ -17,3 +20,13 @@ form.addEventListener("submit", (event) => {
 
 // Check if the user has clicked on a vote button
 // If he has, disable all the buttons
+for (checkbox of checkboxes) {
+    checkbox.addEventListener("change", (event) => {
+        for (button of vote_buttons) {
+            button.classList.add("pointer-events-none");
+        }
+        for (label of labels) {
+            label.classList.add("opacity-80");
+        }
+    })
+}
