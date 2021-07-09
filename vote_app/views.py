@@ -13,11 +13,24 @@ User = get_user_model()
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class VotingCategoriesListPage(ListView):
+class VotingCategoriesListPage(LoginRequiredMixin, TemplateView):
     """view for displaying the various categories to vote in"""
     template_name = "vote/voting-categories-list.html"
     model = Category
     context_object_name = "categories"
+
+    def get(self, request, *args, **kwargs):
+        voter = request.user
+        context = {
+            "categories": self.model.objects.all().exclude(voters=voter), # remove the categories the voter has already voted in
+            "user": request.user
+        }
+        if context["categories"].count() > 0:
+            return render(request, self.template_name, context)
+        else:
+            return render(request, template_name="vote/voting-completed.html")
+
+    # TODO - if remove the categories the voter has voted in from the displayed categories
 
 
 class VotingPage(LoginRequiredMixin, TemplateView):
@@ -51,7 +64,7 @@ class VotingPage(LoginRequiredMixin, TemplateView):
         candidate.upvote()
 
         # Get the user and add him to the voters of the category
-        voter = User.objects.get(username=request.user.username)
+        voter = request.user
         
         # Add the voter to the category's voters
         category.voters.add(voter)
@@ -66,9 +79,9 @@ class VotingPage(LoginRequiredMixin, TemplateView):
 
     def get(self, request, slug):
         category = Category.objects.get(slug=slug)
-        user = User.objects.get(username=request.user.username)
-
+        
         # Check if the user has voted in the category already and redirect him if he has
+        user = request.user
         if user.username in [voter.username for voter in category.voters.filter(username__search=user.username)]:
             return render(request, template_name="vote/already-voted.html", context={"user": user})
 
