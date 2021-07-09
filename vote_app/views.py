@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db.models import fields
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
@@ -8,9 +9,8 @@ from django.views.generic.base import TemplateView
 
 from .models import Candidate, Category
 
-from django.contrib.auth import get_user_model
-
 User = get_user_model()
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class VotingCategoriesListPage(ListView):
@@ -20,7 +20,7 @@ class VotingCategoriesListPage(ListView):
     context_object_name = "categories"
 
 
-class VotingPage(TemplateView):
+class VotingPage(LoginRequiredMixin, TemplateView):
     """view for the voting page"""
     template_name = "vote/vote-page.html"
     success_url = reverse_lazy("vote_app:vote-categories")
