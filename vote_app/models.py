@@ -51,7 +51,7 @@ class Candidate(models.Model):
     picture = models.ImageField(_("Picture of Candidate"),
                                 blank=False,
                                 null=False,
-                                upload_to="/media/candidates/pictures/",
+                                upload_to="media/candidates/pictures/",
                                 help_text="Upload the image of the candidate")
     category = models.ForeignKey(
         Category,
