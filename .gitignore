@@ -1,4 +1,6 @@
 .divio
+/data
+
 # Django #
 *.log
 *.pot

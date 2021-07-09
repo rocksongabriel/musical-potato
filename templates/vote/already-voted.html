@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Already Voted{% endblock title %}
+
+
+{% block content %}
+    <div class="p-10 text-lg md:text-3xl text-red-600 text-center shadow-xl bg-white">
+        You have already voted in this category, please vote in the others <br >
+
+        <a href="{% url 'vote_app:vote-categories' %}" class="text-blue-600 text-lg">Vote</a>
+    </div>
+{% endblock content %}

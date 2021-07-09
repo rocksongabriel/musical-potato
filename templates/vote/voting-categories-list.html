@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Voting Categories{% endblock title %}
+
+
+{% block content %}
+    <div class="mx-10">
+        <h1 class="my-5 text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-center">Categories</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 mt-10">
+            {% for category in categories %}
+                <a href="{% url 'vote_app:vote' category.slug %}" class=" bg-gray-700 text-white p-5 text-center border border-gray-300 text-2xl lg:text-3xl font-bold shadow-xl rounded">
+                    <h2>{{ category.name }}</h2>
+                </a>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
