@@ -47,7 +47,7 @@
                             <div class="relative">
                                 <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
                                 <h3 
-                                    class="text-red-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold hidden voted-label checkbox_{{ form.full_name.value|slugify }}">
+                                    class="text-red-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold hidden voted-label checkbox_{{ form.full_name.value|slugify }} transition delay-100 duration-100">
                                     Voted
                                 </h3>
                             </div>
@@ -55,7 +55,7 @@
                             <!-- button to upvote this candidate -->
                             <div class="mt-5">
                                 <input class="checkbox_{{ form.full_name.value|slugify }} input-checkbox hidden" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
-                                <button for="upvote_{{ form.full_name.value|slugify }}" type="button" style="width: 100%" class="checkbox-btn focus:outline-none">
+                                <button type="button" style="width: 100%" class="checkbox-btn focus:outline-none transition delay-100 duration-100">
                                     <label 
                                         for="upvote_{{ form.full_name.value|slugify }}"
                                         class="block text-center bg-purple-600 hover:bg-purple-700 p-3 text-white font-bold text-xl rounded-md cursor-pointer checkbox-label">
