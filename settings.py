@@ -76,3 +76,4 @@ MEDIA_ROOT = os.path.join('/data/media/')
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = reverse_lazy("vote_app:vote-categories")
+LOGOUT_REDIRECT_URL = reverse_lazy("pages:home")

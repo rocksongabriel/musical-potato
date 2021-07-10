@@ -13,11 +13,16 @@ User = get_user_model()
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class VotingCategoriesListPage(LoginRequiredMixin, TemplateView):
+class CustomLoginRequiredMixin(LoginRequiredMixin):
+    login_url = reverse_lazy("users:login")
+    
+
+class VotingCategoriesListPage(CustomLoginRequiredMixin, TemplateView):
     """view for displaying the various categories to vote in"""
     template_name = "vote/voting-categories-list.html"
     model = Category
     context_object_name = "categories"
+    login_url = reverse_lazy("users:login")
 
     def get(self, request, *args, **kwargs):
         voter = request.user
@@ -33,7 +38,7 @@ class VotingCategoriesListPage(LoginRequiredMixin, TemplateView):
     # TODO - if remove the categories the voter has voted in from the displayed categories
 
 
-class VotingPage(LoginRequiredMixin, TemplateView):
+class VotingPage(CustomLoginRequiredMixin, TemplateView):
     """view for the voting page"""
     template_name = "vote/vote-page.html"
     success_url = reverse_lazy("vote_app:vote-categories")
