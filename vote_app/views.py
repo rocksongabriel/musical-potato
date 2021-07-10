@@ -1,10 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.db.models import fields
 from django.forms import inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 
 from .models import Candidate, Category
@@ -15,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CustomLoginRequiredMixin(LoginRequiredMixin):
     login_url = reverse_lazy("users:login")
-    
+
 
 class VotingCategoriesListPage(CustomLoginRequiredMixin, TemplateView):
     """view for displaying the various categories to vote in"""

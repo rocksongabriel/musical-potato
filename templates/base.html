@@ -2,24 +2,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/tailwind/tailwind.css' %}">
-    <title>{% block title %}{% endblock title %}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/tailwind/tailwind.css' %}">
+  <title>{% block title %}{% endblock title %}</title>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col" style="min-height: 100vh;">
     
-    <!-- navigation -->
-    <nav></nav>
+  <!-- navigation -->
+  <nav class="bg-white text-gray-900 shadow-xl px-5 md:px-10 lg:px-20 font-serif"> <!-- start of navigation -->
+    <!-- nav-->
+    <div class="flex justify-between py-3 md:py-4">
+      <!-- logo -->
+      <div>
+        <h3 class="text-lg md:text-2xl font-bold">
+          <a href="{% url 'pages:home' %}"><span class="font-extrabold text-gray-600">Voting</span>Platform</a>
+        </h3> <!-- this is the logo-->
+      </div>
 
+      <!-- primary navigation  -->
+      <div class="space-x-5">
+        <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Vote</a>
+        <a href="{% url 'vote_app:results' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Election Results</a>
+      </div>
+
+      <!-- secondary navigation -->
+      <div class="space-x-5">
+        {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}" class="text-lg bg-red-600 px-4 py-2 rounded-md hover:bg-red-700 font-bold text-white">Logout</a>
+        {% else %}
+          <a href="{% url 'users:login' %}" class="text-lg bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-700 font-bold text-white">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav> <!-- end of navigation -->
+
+  <!-- start of main content of page-->
+  <div class="px-5 md:px-10 lg:px-20">
     {% block content %}{% endblock content %}
+  </div>
 
-    <!-- footer -->
-    <footer></footer>
+  <!-- footer -->
+  <footer class="mt-auto bg-gray-900 text-white px-5 md:px-10 lg:px-20"> <!-- start of footer -->
+    <div class="flex flex-col md:flex-row py-5 md:py-10 text-center md:text-left space-y-5 md:space-y-0 md:justify-between"> <!-- container of footer content -->
+      <div class="">
+        <p class="text-lg text-gray-200">Voting Platform of Department Name</p>
+      </div>
 
-    <script src="{% static 'js/vue/vue.min.js' %}"></script>
-    <script src="{% static 'js/custom/main-vue.js' %}"></script>
-    <script src="{% static 'js/custom/main.js' %}"></script>
+      <div>
+        Designed and built by Gabriel Rockson
+      </div>
+    </div>
+  </footer> <!-- end of footer -->
+
+  <script src="{% static 'js/vue/vue.min.js' %}"></script>
+  <script src="{% static 'js/custom/main-vue.js' %}"></script>
+  <script src="{% static 'js/custom/main.js' %}"></script>
 </body>
 </html>
