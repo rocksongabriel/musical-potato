@@ -8,8 +8,11 @@
 
     <div class="mx-5">
 
+        {% comment %} <a href="{% url 'users:signup' %}" % class="text-lg text-red-600"}>Signup</a> {% endcomment %}
+        <a href="{% url 'users:login' %}" % class="text-lg text-purple-600"}>Login</a>
         <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-500">Vote</a>
         <a href="{% url 'vote_app:results' %}" % class="text-lg text-green-600"}>Result</a>
+
 
     </div>
 {% endblock content %}
