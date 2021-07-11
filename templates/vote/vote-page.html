@@ -47,8 +47,8 @@
                                 <div class="relative">
                                     <img src="{{ MEDIA_URL }}{{ form.picture.value }}" class="w-full h-80 rounded-md">
                                     <h3 
-                                        class="text-red-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold hidden voted-label checkbox_{{ form.full_name.value|slugify }} transition delay-100 duration-100">
-                                        Voted
+                                        class="bg-gray-800 py-3 w-full text-center text-green-500 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-0 text-6xl font-extrabold hidden voted-label checkbox_{{ form.full_name.value|slugify }} transition delay-100 duration-100">
+                                        Upvoted
                                     </h3>
                                 </div>
 
