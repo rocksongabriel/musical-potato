@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-from aldryn_django.utils import i18n_patterns
 import aldryn_addons.urls
-from django.urls import path, include
-
+from aldryn_django.utils import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 
 urlpatterns = [
     # add your own patterns here
     # path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path('admin/', admin.site.urls),
 
     path("", include("pages.urls", namespace="pages")),
     path("users/", include("users.urls", namespace="users")),
