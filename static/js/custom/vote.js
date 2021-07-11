@@ -18,6 +18,16 @@ form.addEventListener("submit", (event) => {
     }
 })
 
+// When the page is loaded, set all the checkboxes to false, 
+// This will ensure that even if a voter refreshes their page 
+// they wouldn't have accidentally voted twice
+window.addEventListener("load", () => {
+    console.log("Page has loaded");
+    for (checkbox of checkboxes) {
+        checkbox.checked = false;
+    }
+})
+
 
 // Check if the user has clicked on a vote button
 // If he has, disable all the buttons
@@ -42,4 +52,3 @@ for (checkbox of checkboxes) {
         }
     })
 }
-
