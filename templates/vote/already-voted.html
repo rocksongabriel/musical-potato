@@ -4,9 +4,11 @@
 
 
 {% block content %}
-    <div class="p-10 text-lg md:text-3xl text-red-600 text-center shadow-xl bg-white">
-        You have already voted in this category, please vote in the others <br >
+    <div class="pbg-gray-200 shadow-xl w-full py-10 md:px-5">
+        <h1 class="text-5xl md:text-6xl font-bold text-center text-green-800">You have already voted in this category, please vote in the others</h1>
 
-        <a href="{% url 'vote_app:vote-categories' %}" class="text-blue-600 text-lg">Vote</a>
+       <div class="flex justify-center mt-6">
+            <a href="{% url 'vote_app:vote-categories' %}" class="px-4 py-4 bg-red-700 text-xl text-white rounded-sm font-bold">Continue Voting</a>
+        </div>
     </div>
 {% endblock content %}
