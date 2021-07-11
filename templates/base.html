@@ -24,8 +24,8 @@
 
       <!-- primary navigation  --> <!-- TODO - make the navigation mobile responsive -->
       <div class="space-x-5 hidden sm:flex">
-        <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Vote</a>
-        <a href="{% url 'vote_app:results' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Election Results</a>
+        <a href="{% url 'vote_app:vote-categories' %}" class="nav-link text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Vote</a>
+        <a href="{% url 'vote_app:results' %}" class="nav-link text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Election Results</a>
       </div>
 
       <!-- secondary navigation -->
@@ -46,14 +46,14 @@
       </div>
     </div>
 
-    <div class="flex flex-col text-center text-lg border-t border-gray-600 space-y-3 py-2 sm:hidden transition delay-150 duration-200" id="mobile-nav">
+    <div class="flex-col hidden text-center text-lg border-t border-gray-600 space-y-3 py-2 sm:hidden transition delay-150 duration-200" id="mobile-nav">
       <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Vote</a>
         <a href="{% url 'vote_app:results' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">Election Results</a>
     </div>
   </nav> <!-- end of navigation -->
 
   <!-- start of main content of page-->
-  <div class="px-5 md:px-10 lg:px-20">
+  <div class="px-5 md:px-10 lg:px-20 my-10">
     {% block content %}{% endblock content %}
   </div>
 
