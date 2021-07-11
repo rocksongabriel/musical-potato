@@ -4,6 +4,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 from .models import Candidate, Category
 
@@ -32,8 +34,6 @@ class VotingCategoriesListPage(CustomLoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context)
         else:
             return render(request, template_name="vote/voting-completed.html")
-
-    # TODO - if remove the categories the voter has voted in from the displayed categories
 
 
 class VotingPage(CustomLoginRequiredMixin, TemplateView):
@@ -93,6 +93,18 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
-class ResultsPage(TemplateView):
+# Election Results
+
+
+class AllCategoriesResultsPageView(ListView):
     """view for the results"""
-    template_name = "vote/results-page.html"
+    template_name = "vote/results-all-categories-display.html"
+    model = Category
+    context_object_name = "categories"
+
+
+class ResultPageView(DetailView):
+    """view for the result of an individual portfolio"""
+    template_name = "vote/result-page.html"
+    model = Category
+    context_object_name = "category"
