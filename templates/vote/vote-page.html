@@ -7,9 +7,9 @@
 {% block content %}
     <div id="vote-app">
 
-        <p class="text-center text-black text-4xl font-bold py-4">{{ category.name }}</p>
+        <p class="text-center bg-gray-800 shadow-md text-gray-100 text-4xl sm:text-6xl font-extrabold py-6 mb-2 ">{{ category.name }}</p>
 
-        <div class="mx-2 md:mx-5 lg:mx-10 my-5">
+        <div class="mx-2 md:mx-5 lg:mx-10 my-5 md:my-10">
 
             <!--
                 display:
@@ -19,7 +19,7 @@
                     - a hidden field for the upvote, that will be ticked when the vote button is clicked
             -->
 
-            <form method="POST" id="vote-form">
+            <form method="POST" enctype=multipart/form-data id="vote-form">
                 {% csrf_token %}
 
                 {{ formset.management_form }}
@@ -59,7 +59,7 @@
                                     <label 
                                         for="upvote_{{ form.full_name.value|slugify }}"
                                         class="block text-center bg-purple-600 hover:bg-purple-700 p-3 text-white font-bold text-xl rounded-md cursor-pointer checkbox-label">
-                                        Vote
+                                        Vote <i class="fas fa-vote-yea ml-3"></i>
                                     </label>
                                 </button>
 
@@ -68,8 +68,8 @@
                 {% endfor %}
             </div>
 
-            <div class="flex">
-                    <button class="bg-blue-600 py-3 px-8 text-xl font-bold text-white rounded-md hover:bg-blue-700">Submit Vote</button>
+            <div class="flex mt-10">
+                <button class="bg-blue-600 py-3 px-8 w-full text-2xl font-bold text-white rounded-md hover:bg-blue-700">Submit Vote <i class="fas fa-inbox ml-3"></i></button>
             </div>
             </form>
 
