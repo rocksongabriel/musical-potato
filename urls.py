@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # add your own patterns here
-    path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    # path('grappelli/', include('grappelli.urls')), # grappelli URLS
 
     path("", include("pages.urls", namespace="pages")),
     path("users/", include("users.urls", namespace="users")),

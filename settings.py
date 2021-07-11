@@ -57,7 +57,7 @@ INSTALLED_APPS.extend([
     "vote_app",
 ])
 
-INSTALLED_APPS.insert(0, "grappelli")
+# INSTALLED_APPS.insert(0, "grappelli")
 
 # To see the settings that have been applied, use the Django diffsettings 
 # management command. 
