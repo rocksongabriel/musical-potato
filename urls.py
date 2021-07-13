@@ -9,7 +9,7 @@ from django.urls import include, path
 urlpatterns = [
     # add your own patterns here
     # path('grappelli/', include('grappelli.urls')), # grappelli URLS
-    path('admin/', admin.site.urls),
+    path('ec/admin/', admin.site.urls),
 
     path("", include("pages.urls", namespace="pages")),
     path("users/", include("users.urls", namespace="users")),
