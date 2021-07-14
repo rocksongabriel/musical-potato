@@ -8,3 +8,7 @@
 .footer-icon {
     @apply text-4xl rounded-full text-white cursor-pointer hover:text-gray-400 transition delay-200 duration-200 ease-linear;
 }
+
+.cta-btn {
+    @apply w-full text-2xl font-bold text-white py-5 md:mx-2 rounded-2xl transition delay-150 duration-150 ease-linear;
+}
