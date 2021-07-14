@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Homepage{% endblock title %}
+{% block title %}University of Ghana Association of Psycology Students Voting Platform{% endblock title %}
 
 
 {% block content %}
-    <h1 class="text-center text-5xl font-bold py-3 text-yellow-600">Welcome</h1>
 
-    <div class="mx-5">
+<div class="px-2 md:px-5 lg:px-10">
+    <h1 class="text-6xl lg:text-9xl font-bold leading-none md:leading-tight text-center text-gray-800">University of Ghana Association of Psychology Students</h1>
 
-        {% comment %} <a href="{% url 'users:signup' %}" % class="text-lg text-red-600"}>Signup</a> {% endcomment %}
-        <a href="{% url 'users:login' %}" % class="text-lg text-purple-600"}>Login</a>
-        <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-500">Vote</a>
-        <a href="{% url 'vote_app:results' %}" % class="text-lg text-green-600"}>Result</a>
-        <a href="{% url 'users:logout' %}" class="text-lg text-red-600">Logout</a>
+    <h2 class="text-gray-600 text-center py-10 text-5xl">We welcome you to our voting platform</h2>
+</div>
 
-
-    </div>
 {% endblock content %}

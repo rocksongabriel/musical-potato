@@ -12,20 +12,20 @@
 <body class="bg-gray-100 flex flex-col" style="min-height: 100vh;">
     
   <!-- navigation -->
-  <nav class="bg-white text-gray-900 shadow-xl px-5 md:px-10 lg:px-20 font-serif mb-5"> <!-- start of navigation -->
+  <nav class="bg-white text-gray-900 shadow-xl px-5 md:px-10 lg:px-20 mb-5 font-arvo"> <!-- start of navigation -->
     <!-- nav-->
-    <div class="flex justify-between py-3 md:py-4">
+    <div class="flex justify-between py-4 md:py-4">
       <!-- logo -->
       <div>
         <h3 class="text-lg md:text-2xl font-bold">
-          <a href="{% url 'pages:home' %}"><span class="font-extrabold text-gray-600">Voting</span>Platform</a>
+          <a href="{% url 'pages:home' %}"><span class="font-extrabold text-gray-700 font-raleway">unigapselection21</span></a>
         </h3> <!-- this is the logo-->
       </div>
 
       <!-- primary navigation  --> <!-- TODO - make the navigation mobile responsive -->
       <div class="space-x-5 hidden sm:flex">
-        <a href="{% url 'vote_app:vote-categories' %}" class="nav-link text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">vote</a>
-        <a href="{% url 'vote_app:results' %}" class="nav-link text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">election results</a>
+        <a href="{% url 'vote_app:vote-categories' %}" class="nav-link text-lg text-blue-700 hover:text-blue-500 font-bold transition delay-100 duration-150">vote</a>
+        <a href="{% url 'vote_app:results' %}" class="nav-link text-lg text-blue-700 hover:text-blue-500 font-bold transition delay-100 duration-150">election results</a>
       </div>
 
       <!-- secondary navigation -->
@@ -46,28 +46,53 @@
       </div>
     </div>
 
-    <div class="flex-col hidden text-center text-lg border-t border-gray-600 space-y-3 py-2 sm:hidden transition delay-150 duration-200" id="mobile-nav">
-      <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">vote</a>
-        <a href="{% url 'vote_app:results' %}" class="text-lg text-blue-700 hover:text-pink-500 font-bold transition delay-100 duration-150">election results</a>
+    <div class="flex-col hidden text-right text-2xl px-2 border-t border-gray-300 space-y-2 py-3 sm:hidden transition delay-150 duration-200" id="mobile-nav">
+      <a href="{% url 'vote_app:vote-categories' %}" class="text-lg text-blue-600 hover:text-blue-500 font-bold transition delay-100 duration-150">vote</a>
+      <a href="{% url 'vote_app:results' %}" class="text-lg text-blue-600 hover:text-blue-500 font-bold transition delay-100 duration-150">election results</a>
     </div>
   </nav> <!-- end of navigation -->
 
   <!-- start of main content of page-->
-  <div class="px-5 md:px-10 lg:px-20 my-10">
+  <div class="px-5 md:px-10 lg:px-20 mb-10 my-5 font-raleway">
     {% block content %}{% endblock content %}
   </div>
 
   <!-- footer -->
-  <footer class="mt-auto bg-gray-900 text-white px-5 md:px-10 lg:px-20"> <!-- start of footer -->
-    <div class="flex flex-col md:flex-row py-5 md:py-10 text-center md:text-left space-y-5 md:space-y-0 md:justify-between"> <!-- container of footer content -->
-      <div class="">
-        <p class="text-lg text-gray-200">Voting Platform of Department Name</p>
-      </div>
+  <footer class="mt-auto bg-gray-800 font-lato"> <!-- start of footer -->
+    
+    <div class="justify-center py-20" > <!-- footer contents container -->
 
-      <div>
-        Designed and built by Gabriel Rockson
+      <div class="text-center">
+        <div class="space-x-5"><!-- icons box -->
+          <i class="fab fa-facebook footer-icon"></i>
+          <i class="fab fa-instagram footer-icon"></i>
+          <i class="fab fa-twitter footer-icon"></i>
+        </div>
+
+        <div class="text-gray-200 pt-10 font-semibold text-lg"> <!-- links box -->
+          <a href="#" class="hover:text-gray-400">Info</a> <a href="#" class="hover:text-gray-400">Support</a>
+        </div>
+
+        <div class="py-2 text-gray-500 font-bold text-xl">
+          <span>&copy; 2021</span> unigapselection21
+        </div>
+      </div>
+  
+      <div class="text-center -mb-12 mt-12"> <!-- my message -->
+        <span class="text-gray-400 text-xl font-semibold">
+          Designed and built with <span class="text-red-600 text-2xl px-1 animate-pulse">&#10084;</span> by Gabriel Rockson
+        </span>
+
+        <div class="mt-2 text-center font-light flex justify-center">
+          <div class="flex flex-col md:flex-row md:space-x-6">
+            <a href="https://github.com/rocksongabriel" class="text-blue-300 hover:text-blue-400 text-xl py-1"><i class="fab fa-github mr-1"> my github</i> </a>
+            <a href="https://www.linkedin.com/in/gabriel-rockson-817b4a211/" class="text-blue-300 hover:text-blue-400 text-xl py-1"><i class="fab fa-linkedin mr-1"></i> connect with me</a>
+            <a href="mailto:thegabrielrockson@gmail.com" class="text-blue-300 hover:text-blue-400 text-xl py-1"><i class="fas fa-envelope mr-1"></i> email me</a>
+          </div>
+        </div>
       </div>
     </div>
+
   </footer> <!-- end of footer -->
 
   <script src="{% static 'js/custom/main.js' %}"></script>
