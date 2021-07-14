@@ -85,33 +85,79 @@
         <div class="flex justify-around">
             <div class="w-full md:w-10/12">
                 <form action="" method="post">
+                    {% csrf_token %}
 
                     <div class="flex flex-col my-2">
-                        <label for="#" class="text-lg font-bold text-gray-700">Full Name</label>
-                        <input type="text" name="#" id="#" 
-                            class="border-2 border-purple-600 focus:outline-none p-3 text-lg"
+                        <label 
+                            for="{{ form.full_name.id_for_label }}" 
+                            class="text-lg font-bold text-gray-700"
                         >
+                            {{ form.full_name.label }}
+                        </label>
+                        <input 
+                            type="text" 
+                            name="{{ form.full_name.name }}" 
+                            id="{{ form.full_name.id_for_label }}" 
+                            maxlength="{{ form.full_name.max_length }}"
+                            {% if form.full_name.field.required %}required{% endif %}
+                            class="border border-purple-600 focus:outline-none p-3 text-lg"
+                        >
+                        <small class="text-red-500">{{ form.full_name.help_text }}</small>
                     </div>
         
                     <div class="flex flex-col my-2">
-                        <label for="#" class="text-lg font-bold text-gray-700">Student ID</label>
-                        <input type="text" name="#" id="#" 
-                            class="border-2 border-purple-600 focus:outline-none p-3 text-lg"
+                        <label 
+                            for="{{ form.student_id.id_for_label }}" 
+                            class="text-lg font-bold text-gray-700"
                         >
+                            {{ form.student_id.label }}
+                        </label>
+                        <input 
+                            type="text" 
+                            name="{{ form.student_id.name }}" 
+                            id="{{ form.student_id.id_for_label }}"
+                            maxlength="{{ form.student_id.max_length }}" 
+                            {% if form.student_id.field.required %}required{% endif %}
+                            class="border border-purple-600 focus:outline-none p-3 text-lg"
+                        >
+                        <small class="text-red-500">{{ form.student_id.help_text }}</small>
                     </div>
         
                     <div class="flex flex-col my-2">
-                        <label for="#" class="text-lg font-bold text-gray-700">Email Address</label>
-                        <input type="text" name="#" id="#" 
-                            class="border-2 border-purple-600 focus:outline-none p-3 text-lg"
+                        <label 
+                            for="{{ form.email_address.id_for_label }}" 
+                            class="text-lg font-bold text-gray-700"
                         >
+                            {{ form.email_address.label }}
+                        </label>
+                        <input 
+                            type="text" 
+                            name="{{ form.email_address.name }}" 
+                            id="{{ form.email_address.id_for_label }}"
+                            maxlength="{{ form.email_address.max_length }}" 
+                            {% if form.email_address.field.required %}required{% endif %}
+                            class="border border-purple-600 focus:outline-none p-3 text-lg"
+                        >
+                        <small class="text-red-500">{{ form.email_address.help_text }}</small>
                     </div>
         
                     <div class="flex flex-col my-2">
-                        <label for="#" class="text-lg font-bold text-gray-700">Complaint Message</label>
-                        <textarea name="" id="" cols="30" rows="4"
-                        class="border-2 border-purple-600 focus:outline-none p-3 text-lg"
+                        <label 
+                            for="{{ form.message.id_for_label }}" 
+                            class="text-lg font-bold text-gray-700"
+                        >
+                            {{ form.message.label }}
+                        </label>
+                        <textarea 
+                            name="{{ form.message.name }}" 
+                            id="{{ form.message.id_for_label }}" 
+                            maxlength="{{ form.message.max_length }}"
+                            {% if form.message.field.required %}required{% endif %}
+                            cols="30" 
+                            rows="4"
+                            class="border border-purple-600 focus:outline-none p-3 text-lg"
                         ></textarea>
+                        <small class="text-red-500">{{ form.message.help_text }}</small>
                     </div>
 
                     <button type="submit" 
