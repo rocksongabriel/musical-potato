@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import related
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -80,7 +79,8 @@ class Candidate(models.Model):
         return super().save(**kwargs)
 
     def save(self, **kwargs):
-        self.full_name = " ".join(self.full_name.split()) # Remove any spaces that will mistakenly crawl into the full_name
+        self.full_name = " ".join(self.full_name.split(
+        ))  # Remove any spaces that will mistakenly crawl into the full_name
         return super().save(**kwargs)
 
     def __str__(self):
