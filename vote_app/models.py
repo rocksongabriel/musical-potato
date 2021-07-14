@@ -94,6 +94,7 @@ class Candidate(models.Model):
 
 
 class Support(models.Model):
+    """Model for the support form"""
     full_name = models.CharField(_("Full Name"), max_length=50, help_text="Enter your full name", null=False, blank=False)
     student_id = models.CharField(_("Student ID"), max_length=20, help_text="Enter your ID", null=False, blank=False)
     email_address = models.EmailField(_("Email Address"), max_length=300, help_text="Enter your email address", blank=False, null=True)
