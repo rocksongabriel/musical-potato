@@ -13,3 +13,12 @@ class HomePage(TemplateView):
             "form": self.form_class()
         }
         return render(request, self.template_name, context)
+
+    def post(self, request, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # TODO - email the admins the issue, or send them an sms or something of the sort
+            form.save()
+            return render(request, template_name="pages/complaint-submitted.html")
+        return render(request, self.template_name, {"form": form})
+
