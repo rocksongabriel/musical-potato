@@ -53,8 +53,9 @@ INSTALLED_APPS.extend([
     "django_extensions",
 
     # developer created apps
-    "users",
-    "vote_app",
+    "users.apps.UsersConfig",
+    "vote_app.apps.VoteAppConfig",
+    "pages.apps.PagesConfig",
 ])
 
 # INSTALLED_APPS.insert(0, "grappelli")
