@@ -5,6 +5,15 @@ let vote_buttons = document.getElementsByClassName("checkbox-btn");
 let labels = document.getElementsByClassName("checkbox-label");
 voted_labels = document.getElementsByClassName("voted-label");
 
+
+// Reload the page when a user tries to go back
+function preventBack() {
+    window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function() {null};
+
+// Prevent submission if the voter hasn't voted for anyone
 form.addEventListener("submit", (event) => {
     let all_checked = false;
     for (checkbox of checkboxes) {
