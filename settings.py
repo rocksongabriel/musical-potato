@@ -92,3 +92,8 @@ EMAIL_USE_SSL = False
 
 DEFAULT_FROM_EMAIL = 'ec.unigapselection21@gmail.com'
 SERVER_EMAIL = 'ec.unigapselection21@gmail.com'
+
+
+# SSL Redirect to HTTPS
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True # Redirect to https if user hits http
