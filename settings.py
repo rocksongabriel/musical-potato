@@ -71,7 +71,7 @@ GRAPPELLI_ADMIN_TITLE = "Voting Platform"
 GRAPPELLI_SWITCH_USER = "True"
 
 # Media settings
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join('/data/media/')
 
 SITE_ID = 1
