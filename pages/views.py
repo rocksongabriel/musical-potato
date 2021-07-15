@@ -1,11 +1,24 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from vote_app.forms import SupportForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class HomePage(TemplateView):
     template_name = "pages/homepage.html"
     form_class = SupportForm
+
+    def support_request_mail(self, full_name, student_id, email_address, msg):
+        subject = "Voter with Issue"
+        message = f"Student by name {full_name} with ID {student_id} and e-mail {email_address} has the following problem.\n\n\n\n{msg}"
+        return send_mail(
+            subject, 
+            message, 
+            from_email=settings.DEFAULT_FROM_EMAIL, 
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            fail_silently=False
+        )
     
 
     def get(self, request, **kwargs):
@@ -19,6 +32,12 @@ class HomePage(TemplateView):
         if form.is_valid():
             # TODO - email the admins the issue, or send them an sms or something of the sort
             form.save()
+            self.support_request_mail(
+                form.cleaned_data["full_name"],
+                form.cleaned_data["student_id"],
+                form.cleaned_data["email_address"],
+                form.cleaned_data["message"]
+            )
             return render(request, template_name="pages/complaint-submitted.html")
         return render(request, self.template_name, {"form": form})
 
