@@ -23,9 +23,12 @@
   <!-- fontawesome cssfile in development-->
   {% comment %} <link rel="stylesheet" href="{% static 'icons/fontawesome/all.min.css' %}"> {% endcomment %}
 
+  <!-- Animate on Scroll -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <title>{% block title %}{% endblock title %}</title>
 </head>
-<body class="bg-gray-100 flex flex-col" style="min-height: 100vh;">
+<body class="bg-gray-100 flex flex-col" style="min-height: 100vh; scroll-behavior: smooth;">
     
   <!-- navigation -->
   <nav class="bg-white text-gray-900 shadow-xl px-5 md:px-10 lg:px-20 mb-5 font-arvo"> <!-- start of navigation -->
@@ -74,7 +77,7 @@
   </div>
 
   <!-- footer -->
-  <footer class="mt-auto bg-gray-800 font-lato"> <!-- start of footer -->
+  <footer class="mt-auto bg-gray-800 font-lato" data-aos="fade-up" data-aos-delay="200" data-aos-duration="2000"> <!-- start of footer -->
     
     <div class="justify-center py-20" > <!-- footer contents container -->
 
@@ -112,6 +115,13 @@
   </footer> <!-- end of footer -->
 
   <script src="{% static 'js/custom/main.js' %}"></script>
+
+  <!-- Animate on Scroll -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    AOS.init();
+  </script>
 
   {% block extra_js %}{% endblock %}
 </body>

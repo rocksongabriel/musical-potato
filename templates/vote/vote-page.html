@@ -5,7 +5,7 @@
 
 
 {% block content %}
-    <div id="vote-app">
+    <div id="vote-app" class="my-20">
 
         <p class="text-center bg-gray-800 shadow-md text-gray-100 text-4xl sm:text-6xl font-extrabold py-6 mb-2 ">{{ category.name }}</p>
 
@@ -39,7 +39,7 @@
                                 {{ form.number_of_votes }}
                             </div>
 
-                            <div class="shadow-2xl p-5"> <!-- showcase the info on the candidate that the voter should see -->
+                            <div class="shadow-2xl p-5" data-aos="flip-left" data-aos-delay="50" data-aos-duration="1200"> <!-- showcase the info on the candidate that the voter should see -->
                                 <!-- render the name of the candidate from the form-->
                                 <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
 
