@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Candidate, Category, Support
+from .models import Candidate, Category, PageControlPanel, Support
 
 
 class CandidateInline(admin.TabularInline):
@@ -29,3 +29,8 @@ class SupportAdmin(admin.ModelAdmin):
     list_display = ("full_name", "student_id", "email_address",)
     search_fields = ("full_name", "student_id", "email_address",)
     readonly_fields = ("full_name", "student_id", "email_address", "message",)
+
+
+@admin.register(PageControlPanel)
+class PageControlPanelAdmin(admin.ModelAdmin):
+    list_display = ("enable_voting_page", "enable_results_page",)
