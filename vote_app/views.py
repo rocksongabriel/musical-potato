@@ -101,11 +101,19 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
 
 
 # Election Results
-class AllCategoriesResultsPageView(ListView):
+class AllCategoriesResultsPageView(TemplateView):
     """view for the results"""
     template_name = "vote/results-all-categories-display.html"
     model = Category
-    context_object_name = "categories"
+    
+    def get(self, request, **kwargs):
+        control_panel = PageControlPanel.objects.first()
+        if control_panel.enable_results_page:
+            context = {
+                "categories": self.model.objects.all()
+            }
+            return render(request, self.template_name, context)
+        return render(request, "vote/results-page-disabled.html")
 
 
 class ResultPageView(DetailView):
