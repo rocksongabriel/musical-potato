@@ -78,3 +78,17 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = reverse_lazy("vote_app:vote-categories")
 LOGOUT_REDIRECT_URL = reverse_lazy("pages:home")
+
+
+# EMAIL SETTINGS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ec.unigapselection21@gmail.com'
+EMAIL_HOST_PASSWORD = 'y2QwPi!3r'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+DEFAULT_FROM_EMAIL = 'ec.unigapselection21@gmail.com'
+SERVER_EMAIL = 'ec.unigapselection21@gmail.com'
