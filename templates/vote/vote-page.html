@@ -42,11 +42,10 @@
                             <div class="shadow-2xl p-5" data-aos="flip-left" data-aos-delay="50" data-aos-duration="1200"> <!-- showcase the info on the candidate that the voter should see -->
                                 <!-- render the name of the candidate from the form-->
                                 <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
-                                {{ form.image_url }}
 
                                 <!-- render the picture of the candidate from the form-->
                                 <div class="relative">
-                                    <img src="{% get_media_prefix %}{{form.instance.picture}}"" class="w-full h-80 rounded-md">
+                                    <img src="{{form.instance.picture.url}}"" class="w-full h-80 rounded-md">
                                     <h3 
                                         class="bg-gray-800 py-3 w-full text-center text-green-500 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-0 text-6xl font-extrabold hidden voted-label checkbox_{{ form.full_name.value|slugify }} transition delay-100 duration-100">
                                         Upvoted
