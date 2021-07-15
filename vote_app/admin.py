@@ -33,4 +33,4 @@ class SupportAdmin(admin.ModelAdmin):
 
 @admin.register(PageControlPanel)
 class PageControlPanelAdmin(admin.ModelAdmin):
-    list_display = ("enable_voting_page", "enable_results_page",)
+    list_display = ("name", "enable_voting_page", "enable_results_page",)

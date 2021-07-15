@@ -113,8 +113,12 @@ class Support(models.Model):
 
 # VOTING AND RESULTS PAGE VIEW CONTROL
 class PageControlPanel(models.Model):
+    name = models.CharField(_("Name of Panel"), help_text="Enter the name of the panel", max_length=255, null=False, blank=False)
     enable_voting_page = models.BooleanField(_("Enable Voting Page"), help_text="Tick this button if you want people to be able to visit the voting page to vote")
     enable_results_page = models.BooleanField(_("Enable Results Page"), help_text="Tick this box if you want people to be able to view the election results page")
+
+    def __str__(self):
+        return f"{self.name}"
 
     def save(self, *args, **kwargs):
         if not self.pk and PageControlPanel.objects.exists():
@@ -123,4 +127,4 @@ class PageControlPanel(models.Model):
 
     class Meta:
         verbose_name = "Page Control Panel"
-        verbose_name_plural = "Page Control Panels"
+        verbose_name_plural = "Page Control Panel"
