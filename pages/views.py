@@ -3,6 +3,8 @@ from django.views.generic import TemplateView
 from vote_app.forms import SupportForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
 
 
 class HomePage(TemplateView):
@@ -10,13 +12,22 @@ class HomePage(TemplateView):
     form_class = SupportForm
 
     def support_request_mail(self, full_name, student_id, email_address, msg):
+        email_template = "vote/email/support-submitted.html"
         subject = "Voter with Issue"
-        message = f"Student by name {full_name} with ID {student_id} and e-mail {email_address} has the following problem.\n\n\n\n{msg}"
+        context = {
+            "full_name": full_name,
+            "student_id": student_id,
+            "email_address": email_address,
+            "msg": msg
+        }
+        html_message = render_to_string(email_template, context=context)
+        plain_message = strip_tags(html_message)
         return send_mail(
-            subject, 
-            message, 
-            from_email=settings.DEFAULT_FROM_EMAIL, 
+            subject,
+            plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            html_message=html_message,
             fail_silently=False
         )
     
