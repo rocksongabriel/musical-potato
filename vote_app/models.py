@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -107,3 +108,19 @@ class Support(models.Model):
     class Meta:
         verbose_name = "Support Form"
         verbose_name_plural = "Support Forms"
+
+
+
+# VOTING AND RESULTS PAGE VIEW CONTROL
+class PageControlPanel(models.Model):
+    enable_voting_page = models.BooleanField(_("Enable Voting Page"), help_text="Tick this button if you want people to be able to visit the voting page to vote")
+    enable_results_page = models.BooleanField(_("Enable Results Page"), help_text="Tick this box if you want people to be able to view the election results page")
+
+    def save(self, *args, **kwargs):
+        if not self.pk and PageControlPanel.objects.exists():
+            raise ValidationError("There can be only one instance of Page Control Panel")
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Page Control Panel"
+        verbose_name_plural = "Page Control Panels"
