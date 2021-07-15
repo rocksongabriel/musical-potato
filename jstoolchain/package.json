@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "postcss css/tailwind.css -o ../static/css/tailwind/tailwind.css"
+    "build:css-dev": "postcss css/tailwind.css -o ../static/css/tailwind/tailwind.css",
+    "build:css-prod": "export NODE_ENV=production && postcss css/tailwind.css -o ../static/css/tailwind/tailwind.css"
   },
   "keywords": [],
   "author": "",

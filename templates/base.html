@@ -16,7 +16,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" rel="stylesheet" href="{% static 'css/tailwind/tailwind.css' %}">
-  <link rel="stylesheet" href="{% static 'icons/fontawesome/all.min.css' %}">
+
+  <!-- font awesome cdn for production -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+  <!-- fontawesome cssfile in development-->
+  {% comment %} <link rel="stylesheet" href="{% static 'icons/fontawesome/all.min.css' %}"> {% endcomment %}
+
   <title>{% block title %}{% endblock title %}</title>
 </head>
 <body class="bg-gray-100 flex flex-col" style="min-height: 100vh;">
