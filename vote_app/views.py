@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
-from .models import Candidate, Category
+from .models import Candidate, Category, PageControlPanel
 
 User = get_user_model()
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,19 +25,22 @@ class VotingCategoriesListPage(CustomLoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("users:login")
 
     def get(self, request, *args, **kwargs):
-        voter = request.user
-        context = {
-            "categories": self.model.objects.all().exclude(voters=voter), # remove the categories the voter has already voted in
-            "user": request.user
-        }
-        if context["categories"].count() > 0:
-            return render(request, self.template_name, context)
-        else:
-            # Mark the user as voted
-            user = get_user_model().objects.get(username=voter.username)
-            user.voted = True
-            user.save()
-            return render(request, template_name="vote/voting-completed.html")
+        control_panel = PageControlPanel.objects.first()
+        if control_panel.enable_voting_page:
+            voter = request.user
+            context = {
+                "categories": self.model.objects.all().exclude(voters=voter), # remove the categories the voter has already voted in
+                "user": request.user
+            }
+            if context["categories"].count() > 0:
+                return render(request, self.template_name, context)
+            else:
+                # Mark the user as voted
+                user = get_user_model().objects.get(username=voter.username)
+                user.voted = True
+                user.save()
+                return render(request, template_name="vote/voting-completed.html")
+        return render(request, "vote/vote-page-disabled.html")
 
 
 class VotingPage(CustomLoginRequiredMixin, TemplateView):
@@ -82,21 +85,22 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
         return HttpResponseRedirect(self.success_url)
 
     def get(self, request, slug):
-        category = Category.objects.get(slug=slug)
-        
-        # Check if the user has voted in the category already and redirect him if he has
-        user = request.user
-        if user.username in [voter.username for voter in category.voters.filter(username__search=user.username)]:
-            return render(request, template_name="vote/already-voted.html", context={"user": user})
+        control_panel = PageControlPanel.objects.first()
+        if control_panel.enable_voting_page:
+            category = Category.objects.get(slug=slug)
+            
+            # Check if the user has voted in the category already and redirect him if he has
+            user = request.user
+            if user.username in [voter.username for voter in category.voters.filter(username__search=user.username)]:
+                return render(request, template_name="vote/already-voted.html", context={"user": user})
 
-        formset = self.CandidateInlineFormset(instance=category)
-        context = {"category": category, "formset": formset}
-        return render(request, self.template_name, context)
+            formset = self.CandidateInlineFormset(instance=category)
+            context = {"category": category, "formset": formset}
+            return render(request, self.template_name, context)
+        return render(request, "vote/vote-page-disabled.html")
 
 
 # Election Results
-
-
 class AllCategoriesResultsPageView(ListView):
     """view for the results"""
     template_name = "vote/results-all-categories-display.html"
