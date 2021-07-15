@@ -33,6 +33,10 @@ class VotingCategoriesListPage(CustomLoginRequiredMixin, TemplateView):
         if context["categories"].count() > 0:
             return render(request, self.template_name, context)
         else:
+            # Mark the user as voted
+            user = get_user_model().objects.get(username=voter.username)
+            user.voted = True
+            user.save()
             return render(request, template_name="vote/voting-completed.html")
 
 
@@ -76,9 +80,6 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
         if formset.is_valid():
             formset.save()
         return HttpResponseRedirect(self.success_url)
-
-        # TODO - handle error if a voter doesn't vote for anybody and tries to submit
-        # TODO - do not allow the voter for in a category twice
 
     def get(self, request, slug):
         category = Category.objects.get(slug=slug)
