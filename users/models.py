@@ -1,9 +1,11 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.mail import send_mail
 import csv
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+import os
 
 
 # Custom User Manager
@@ -63,7 +65,13 @@ class CreateAccountAndMailStudent(models.Model):
 
     def __str__(self):
         return self.batch
-        
+
+    def clean(self):
+        extension = os.path.splitext(self.csv.url)[1]
+        print(extension)
+        if extension != ".csv":
+            raise ValidationError(_("The file is supposed to be a csv file"))
+
     class Meta:
         verbose_name = "Create Account and Mail Student"
         verbose_name = "Create Account and Mail Student"
