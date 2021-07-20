@@ -6,7 +6,9 @@ import csv
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 import os
-
+from django.contrib.auth import get_user, get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Custom User Manager
 class CustomUserManager(UserManager):
@@ -74,4 +76,9 @@ class CreateAccountAndMailStudent(models.Model):
 
     class Meta:
         verbose_name = "Create Account and Mail Student"
-        verbose_name = "Create Account and Mail Student"
+        verbose_name_plural = "Create Account and Mail Student"
+
+
+@receiver(post_save, sender=CreateAccountAndMailStudent)
+def create_accounts(sender, instance, **kwargs):
+    get_user_model().objects.auto_create_users(f"data/{instance.csv.url}")
