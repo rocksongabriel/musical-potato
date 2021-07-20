@@ -81,6 +81,7 @@ class CreateAccountAndMailStudent(models.Model):
 
 @receiver(post_save, sender=CreateAccountAndMailStudent)
 def create_accounts(sender, instance, **kwargs):
-    if not settings.DEBUG:
-        get_user_model().objects.auto_create_users(f"{instance.csv.url}")
-    get_user_model().objects.auto_create_users(f"data/{instance.csv.url}")
+    get_user_model().objects.auto_create_users(f"{instance.csv.url}")
+    # if not settings.DEBUG:
+        
+    # get_user_model().objects.auto_create_users(f"data/{instance.csv.url}")
