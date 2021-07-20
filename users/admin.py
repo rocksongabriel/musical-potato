@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
-from .models import User
+from .models import User, CreateAccountAndMailStudent
 
 class UserAdmin(admin.ModelAdmin):
     search_fields = ("username", "email",)
@@ -10,3 +10,8 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+
+@admin.register(CreateAccountAndMailStudent)
+class CreateAccountAndMailStudentAdmin(admin.ModelAdmin):
+    list_display = ["batch", "csv"]
