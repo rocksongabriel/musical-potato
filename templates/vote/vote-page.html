@@ -39,25 +39,25 @@
                                 {{ form.number_of_votes }}
                             </div>
 
-                            <div class="shadow-2xl p-5" data-aos="flip-left" data-aos-delay="50" data-aos-duration="1200"> <!-- showcase the info on the candidate that the voter should see -->
+                            <div class="shadow-2xl p-5" data-aos="flip-left" data-aos-delay="50" data-aos-duration="500"> <!-- showcase the info on the candidate that the voter should see -->
                                 <!-- render the name of the candidate from the form-->
-                                <h1 class="text-3xl text-center text-gray-800 py-4 font-bold">{{ form.full_name.value }}</h1> 
+                                <h1 class="text-2xl text-center text-gray-600 py-4 font-bold">{{ form.instance.full_name }}</h1> 
 
                                 <!-- render the picture of the candidate from the form-->
                                 <div class="relative">
                                     <img src="{{form.instance.picture.url}}"" class="w-full h-80 rounded-md">
                                     <h3 
-                                        class="bg-gray-800 py-3 w-full text-center text-green-500 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-0 text-6xl font-extrabold hidden voted-label checkbox_{{ form.full_name.value|slugify }} transition delay-100 duration-100">
+                                        class="bg-gray-800 py-3 w-full text-center text-green-500 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-0 text-4xl font-extrabold hidden voted-label checkbox_{{ form.instance.full_name|slugify }} transition delay-100 duration-100">
                                         Upvoted
                                     </h3>
                                 </div>
 
                                 <!-- button to upvote this candidate -->
                                 <div class="mt-5">
-                                    <input class="checkbox_{{ form.full_name.value|slugify }} input-checkbox hidden" type="checkbox" name="upvote_{{ form.full_name.value|slugify }}" id="upvote_{{ form.full_name.value|slugify }}">
+                                    <input class="checkbox_{{ form.instance.full_name|slugify }} input-checkbox hidden" type="checkbox" name="upvote_{{ form.instance.full_name|slugify }}" id="upvote_{{ form.instance.full_name|slugify }}">
                                     <button type="button" style="width: 100%" class="checkbox-btn focus:outline-none transition delay-100 duration-100">
                                         <label 
-                                            for="upvote_{{ form.full_name.value|slugify }}"
+                                            for="upvote_{{ form.instance.full_name|slugify }}"
                                             class="block text-center bg-purple-600 hover:bg-purple-700 p-3 text-white font-bold text-xl rounded-md cursor-pointer checkbox-label">
                                             Vote <i class="fas fa-vote-yea ml-3"></i>
                                         </label>
