@@ -48,6 +48,7 @@ class Candidate(models.Model):
                                  blank=False,
                                  null=False,
                                  help_text="Enter the name of the candidate")
+    slug = models.SlugField(default="", max_length=50)
     picture = models.ImageField(_("Picture of Candidate"),
                                 blank=False,
                                 null=False,
@@ -80,8 +81,9 @@ class Candidate(models.Model):
         return super().save(**kwargs)
 
     def save(self, **kwargs):
-        self.full_name = " ".join(self.full_name.split(
-        ))  # Remove any spaces that will mistakenly crawl into the full_name
+        self.full_name = " ".join(self.full_name.split())  # Remove any spaces that will mistakenly crawl into the full_name
+        # Set the slug
+        self.slug = slugify(self.full_clean)
         return super().save(**kwargs)
 
     def __str__(self):
