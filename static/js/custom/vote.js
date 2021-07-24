@@ -5,6 +5,7 @@ let vote_buttons = document.getElementsByClassName("checkbox-btn");
 let labels = document.getElementsByClassName("checkbox-label");
 let voted_labels = document.getElementsByClassName("voted-label");
 let remove_vote_btn = document.getElementById("removeVoteBtn");
+let submit_btn = document.getElementById("submitBtn")
 
 
 // Reload the page when a user tries to go back
@@ -21,6 +22,12 @@ form.addEventListener("submit", (event) => {
         all_checked = checkbox.checked || all_checked;
     }
     if (all_checked === true) {
+
+        // disable the submit button and show the spin
+        submit_btn.classList.add("pointer-events-none");
+        spinner.classList.add("inline");
+        spinner.classList.remove("hidden");
+
         form.submit(); // submit the form if one checkbox has been checked
     } else {
         event.preventDefault(); // if the person hasn't voted for anyone, don't submit
