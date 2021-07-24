@@ -3,7 +3,8 @@ let form = document.getElementById("vote-form");
 let checkboxes = document.getElementsByClassName("input-checkbox");
 let vote_buttons = document.getElementsByClassName("checkbox-btn");
 let labels = document.getElementsByClassName("checkbox-label");
-voted_labels = document.getElementsByClassName("voted-label");
+let voted_labels = document.getElementsByClassName("voted-label");
+let remove_vote_btn = document.getElementById("removeVoteBtn");
 
 
 // Reload the page when a user tries to go back
@@ -61,3 +62,33 @@ for (checkbox of checkboxes) {
         }
     })
 }
+
+// Remove votes 
+remove_vote_btn.addEventListener("click", () => {
+    // hide the voted label
+    for (checkbox of checkboxes) {
+        if (checkbox.checked) {
+            identifier_class = checkbox.classList[0]; // the classname to get the voted label to display
+            for (voted_label of voted_labels) {
+                if (voted_label.classList.contains(identifier_class)) {
+                    voted_label.classList.add("hidden"); // hide the voted text
+                }
+            }
+        }
+    }
+
+    // uncheck the checkboxes
+    for (checkbox of checkboxes) {
+        checkbox.checked = false;
+    }
+
+    // enable the vote buttons 
+    for (button of vote_buttons) {
+        button.classList.remove("pointer-events-none");
+    }
+
+    // remove the opacity on the labels
+    for (label of labels) {
+        label.classList.remove("opacity-50");
+    }
+})
