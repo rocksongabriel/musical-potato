@@ -5,23 +5,22 @@ from .models import Candidate, Category, PageControlPanel, Support
 class CandidateInline(admin.TabularInline):
     model = Candidate
     extra = 0
-    min_num = 1
     show_change_link = True
 
-    readonly_fields = ("number_of_votes", )
+    readonly_fields = ("number_of_votes", "slug",)
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     inlines = [CandidateInline, ]
     list_display = ["name",]
-    readonly_fields = ("slug", "voters")
+    readonly_fields = ("slug", "voters",)
 
 
 @admin.register(Candidate)
 class CandidateAdmin(admin.ModelAdmin):
     list_display = ("full_name", "image_tag", "category", "number_of_votes",)
-    readonly_fields = ("number_of_votes",)
+    readonly_fields = ("number_of_votes", "slug",)
 
 
 @admin.register(Support)

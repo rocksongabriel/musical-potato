@@ -83,7 +83,7 @@ class Candidate(models.Model):
     def save(self, **kwargs):
         self.full_name = " ".join(self.full_name.split())  # Remove any spaces that will mistakenly crawl into the full_name
         # Set the slug
-        self.slug = slugify(self.full_clean)
+        self.slug = slugify(self.full_name)
         return super().save(**kwargs)
 
     def __str__(self):

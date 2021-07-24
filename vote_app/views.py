@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+from django.utils.text import slugify
 
 from .models import Candidate, Category, PageControlPanel
 
@@ -68,16 +69,15 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
             if 'upvote' in key:
                 # Get the full name from the key
                 full_name = " ".join([name.capitalize() for name in key.split("_")[1].split("-")])
-        # Get the candidate using the full name
-        candidate = Candidate.objects.get(full_name=full_name)
-        # Upvote the candidate 
-        candidate.upvote()
-
-        # Get the user and add him to the voters of the category
-        voter = request.user
-        
-        # Add the voter to the category's voters
-        category.voters.add(voter)
+                slug = slugify(full_name) # slug
+                # Get the candidate using the full name
+                candidate = Candidate.objects.get(slug=slug)
+                # Upvote the candidate 
+                candidate.upvote()
+                # Get the user and add him to the voters of the category
+                voter = request.user
+                # Add the voter to the category's voters
+                category.voters.add(voter)
 
         # Check the forms validity and save it
         if formset.is_valid():
