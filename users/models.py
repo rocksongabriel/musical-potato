@@ -15,13 +15,13 @@ from django.db import IntegrityError
 class CustomUserManager(UserManager):
     """Custom user manager for the user model"""
 
-    def create_user_account_and_send_mail(self, student_id=None, email=None, campus=None):
+    def create_user_account_and_send_mail(self, student_id=None, email=None):
         """This method will take a student ID, email, campus and create an account. Then email the credentials to the email"""
         # generate password
         password = self.make_random_password(length=8)
         # create user account
         try:
-            self.create_user(username=student_id, email=email, campus=campus, password=password)
+            self.create_user(username=student_id, email=email, password=password)
             print(f"----------------- Account created for {student_id} -------------------")
         except IntegrityError as e:
             print(f"Error {e} occurred")
