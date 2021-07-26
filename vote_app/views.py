@@ -122,7 +122,10 @@ class VotingPage(CustomLoginRequiredMixin, TemplateView):
                 return render(request, template_name="vote/already-voted.html", context={"user": user})
 
             formset = self.CandidateInlineFormset(instance=category)
+
             context = {"category": category, "formset": formset}
+            if context["category"].candidates.count() == 1: # render the individual voting page if the category has an invidual candidate
+                return render(request, "vote/vote-page-individual.html", context)
             return render(request, self.template_name, context)
         return render(request, "vote/vote-page-disabled.html")
 
