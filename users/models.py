@@ -24,9 +24,9 @@ class CustomUserManager(UserManager):
             self.create_user(username=student_id, email=email, password=password)
             print(f"----------------- Account created for {student_id} -------------------")
         except IntegrityError as e:
-            print(f"Error {e} occurred")
+            print(f"Error: {e}")
         except ValueError as e:
-            print(f"Error {e} occurred")
+            print(f"Error: {e}")
         else:
             # send email
             subject = "Credentials to vote in the ASA Elections 2021"
