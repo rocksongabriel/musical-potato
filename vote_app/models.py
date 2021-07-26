@@ -82,6 +82,16 @@ class Candidate(models.Model):
 
     image_tag.short_description = 'Image'
 
+    # increase the yeses
+    def yes_vote(self, **kwargs):
+        self.yes += 1
+        return super().save(**kwargs)
+
+    # increase the nos
+    def no_vote(self, **kwargs):
+        self.no += 1
+        return super().save(**kwargs)
+
     # increase vote of candidate
     def upvote(self, **kwargs):
         self.number_of_votes += 1
@@ -97,6 +107,7 @@ class Candidate(models.Model):
         return self.full_name
 
     class Meta:
+        ordering = ["-vetting_score"]
         verbose_name = "Candidate"
         verbose_name_plural = "Candidates"
 
