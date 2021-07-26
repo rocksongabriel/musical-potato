@@ -66,9 +66,6 @@ INSTALLED_APPS.extend([
 
 AUTH_USER_MODEL = "users.User"
 
-# Grapelli settings
-GRAPPELLI_ADMIN_TITLE = "Voting Platform"
-GRAPPELLI_SWITCH_USER = "True"
 
 # Media settings
 MEDIA_URL = '/media/'
@@ -79,6 +76,16 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = reverse_lazy("vote_app:vote-categories")
 LOGOUT_REDIRECT_URL = reverse_lazy("pages:home")
 
+# Django environ
+import environ
+import os
+
+env_var = environ.Env(
+    # set casting, default value
+     DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
 # EMAIL SETTINGS
 if DEBUG:
@@ -86,7 +93,7 @@ if DEBUG:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_HOST_USER = 'ec.unigapselection21@gmail.com'
-    EMAIL_HOST_PASSWORD = 'y2QwPi!3r'
+    EMAIL_HOST_PASSWORD = env_var("EMAIL_PASSWORD")
     EMAIL_USE_TLS = True
     EMAIL_USE_SSL = False
 
@@ -98,7 +105,7 @@ if not DEBUG:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_HOST_USER = 'ec.unigapselection21@gmail.com'
-    EMAIL_HOST_PASSWORD = 'y2QwPi!3r'
+    EMAIL_HOST_PASSWORD = env_var("EMAIL_PASSWORD")
     EMAIL_USE_TLS = True
     EMAIL_USE_SSL = False
 
