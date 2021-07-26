@@ -2,42 +2,48 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.mail import send_mail
-import csv
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 import os
-from django.contrib.auth import get_user, get_user_model
+from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db import IntegrityError
+
 
 # Custom User Manager
 class CustomUserManager(UserManager):
     """Custom user manager for the user model"""
-    def auto_create_users(self, csv_file):
-        """Create users from a csv file, using the student ID column as the the username, auto generate password for the account and email the credentials to the email associated with the student ID"""
 
-        if csv_file is None:
-            raise ValueError("A csv file is required")
+    def create_user_account_and_send_mail(self, student_id=None, email=None, campus=None):
+        """This method will take a student ID, email, campus and create an account. Then email the credentials to the email"""
+        # generate password
+        password = self.make_random_password(length=8)
+        # create user account
+        try:
+            self.create_user(username=student_id, email=email, campus=campus, password=password)
+            print(f"----------------- Account created for {student_id} -------------------")
+        except IntegrityError as e:
+            print(f"Error {e} occurred")
+        except ValueError as e:
+            print(f"Error {e} occurred")
+        else:
+            # send email
+            subject = "Credentials to vote in the ASA Elections 2021"
+            message = f"PLEASE USE THIS TO LOG IN\n\nStudent ID: {student_id}\nPassword: {password}\n\nUse it to login so that you can vote."
+            send_mail(
+                subject=subject,
+                message=message, 
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            # Get user and mark user as credentials_sent
+            user = get_user_model().objects.get(username=student_id)
+            user.credentials_sent = True
+            user.save()
+            print(f"----------------- Email for {student_id} account sent to {email} successfully --------------------")
 
-        # open the csv file
-        with open(csv_file, "r") as file:
-            my_data_reader = csv.reader(file, delimiter=",")
-            students_data = [data for data in my_data_reader][1:]
-
-            # Create accounts and send mail
-            for student_data in students_data:
-                student_id = student_data[0]
-                email = student_data[1]
-                password = self.make_random_password(length=8)
-                self.create_user(student_id, email, password)
-
-                message = f"Student ID: {student_id} -- Password: {password}"
-                send_mail("Credentials for voting",
-                          message,
-                          from_email=settings.DEFAULT_FROM_EMAIL,
-                          recipient_list=[email],
-                          fail_silently=False)
-                print("----------------- Credentials Sent ----------------")
 
 
 class User(AbstractUser):
