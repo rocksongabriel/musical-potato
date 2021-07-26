@@ -5,7 +5,10 @@ let vote_buttons = document.getElementsByClassName("checkbox-btn");
 let labels = document.getElementsByClassName("checkbox-label");
 let voted_labels = document.getElementsByClassName("voted-label");
 let remove_vote_btn = document.getElementById("removeVoteBtn");
-let submit_btn = document.getElementById("submitBtn")
+let submit_btn = document.getElementById("submitBtn");
+let voted_icon = document.getElementById("votedIcon");
+let down_vote_btn = document.getElementById("downVoteBtn");
+let up_vote_btn = document.getElementById("upVoteBtn");
 
 
 // Reload the page when a user tries to go back
@@ -98,4 +101,16 @@ remove_vote_btn.addEventListener("click", () => {
     for (label of labels) {
         label.classList.remove("opacity-50");
     }
+})
+
+// Downvote an individual 
+down_vote_btn.addEventListener("click", () => {
+    voted_icon.classList.remove(...["fa-caret-up", "text-green-600"])
+    voted_icon.classList.add(...["fa-caret-down", "text-red-600"])
+})
+
+// Upvote an individual
+up_vote_btn.addEventListener("click", () => {
+    voted_icon.classList.remove(...["fa-caret-down", "text-red-600"])
+    voted_icon.classList.add(...["fa-caret-up", "text-green-600"])
 })
